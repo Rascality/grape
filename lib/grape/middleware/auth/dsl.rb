@@ -10,7 +10,7 @@ module Grape
 
         module ClassMethods
           # Add an authentication type to the API. Currently
-          # only `:http_basic`, `:http_digest` are supported.
+          # only `:http_basic` is supported.
           def auth(type = nil, options = {}, &block)
             if type
               namespace_inheritable(:auth, options.reverse_merge(type: type.to_sym, proc: block))
@@ -27,18 +27,6 @@ module Grape
           def http_basic(options = {}, &block)
             options[:realm] ||= 'API Authorization'
             auth :http_basic, options, &block
-          end
-
-          def http_digest(options = {}, &block)
-            options[:realm] ||= 'API Authorization'
-
-            if options[:realm].respond_to?(:values_at)
-              options[:realm][:opaque] ||= 'secret'
-            else
-              options[:opaque] ||= 'secret'
-            end
-
-            auth :http_digest, options, &block
           end
         end
       end

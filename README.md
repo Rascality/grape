@@ -3421,9 +3421,9 @@ end
 
 ## Authentication
 
-### Basic and Digest Auth
+### Basic Auth
 
-Grape has built-in Basic and Digest authentication (the given `block`
+Grape has built-in Basic authentication (the given `block`
 is executed in the context of the current `Endpoint`).  Authentication
 applies to the current namespace and any children, but not parents.
 
@@ -3431,20 +3431,6 @@ applies to the current namespace and any children, but not parents.
 http_basic do |username, password|
   # verify user's password here
   # IMPORTANT: make sure you use a comparison method which isn't prone to a timing attack
-end
-```
-
-Digest auth supports clear-text passwords and password hashes.
-
-```ruby
-http_digest({ realm: 'Test Api', opaque: 'app secret' }) do |username|
-  # lookup the user's password here
-end
-```
-
-```ruby
-http_digest(realm: { realm: 'Test Api', opaque: 'app secret', passwords_hashed: true }) do |username|
-  # lookup the user's password hash here
 end
 ```
 
